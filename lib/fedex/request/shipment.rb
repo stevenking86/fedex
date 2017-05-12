@@ -25,14 +25,15 @@ module Fedex
       def process_request
         api_response = self.class.post api_url, :body => build_xml
         puts api_response if @debug
+
+        # Add parsed_response to avoid errors
         response = parse_response(api_response.parsed_response)
-        puts response if @debug
-        # if success?(response)
-          # temporarily force success response
+
+        if success?(response)
           success_response(api_response, response)
-        # else
-        #   failure_response(api_response, response)
-        # end
+         else
+          failure_response(api_response, response)
+        end
       end
 
       private
