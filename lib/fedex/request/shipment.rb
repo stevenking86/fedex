@@ -26,6 +26,7 @@ module Fedex
         api_response = self.class.post api_url, :body => build_xml
         puts api_response if @debug
         response = parse_response(api_response)
+        puts response if @debug
         if success?(response)
           success_response(api_response, response)
         else
@@ -159,8 +160,8 @@ module Fedex
 
       # Successful request
       def success?(response)
-        response[:process_shipment_reply] &&
-          %w{SUCCESS WARNING NOTE}.include?(response[:process_shipment_reply][:highest_severity])
+        (response[:process_shipment_reply] || response[:ProcessShipmentReply]) &&
+          %w{SUCCESS WARNING NOTE}.include?(response[:ProcessShipmentReply][:highest_severity])
       end
 
     end
