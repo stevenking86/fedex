@@ -27,11 +27,12 @@ module Fedex
         puts api_response if @debug
         response = parse_response(api_response)
         puts response if @debug
-        if success?(response)
+        # if success?(response)
+          # temporarily force success response
           success_response(api_response, response)
-        else
-          failure_response(api_response, response)
-        end
+        # else
+        #   failure_response(api_response, response)
+        # end
       end
 
       private
@@ -138,6 +139,9 @@ module Fedex
 
       # Callback used after a successful shipment response.
       def success_response(api_response, response)
+        # temporarily print response here
+        puts '**************'
+        puts response
         @response_details = response[:process_shipment_reply]
       end
 
