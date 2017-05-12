@@ -13,6 +13,9 @@ module Fedex
         @options = package_details[:label]
         @options[:tracking_number] = package_details[:tracking_id]
       else
+        puts '**** in fedex/label *******'
+        puts @response_details
+
         @response_details = label_details[:process_shipment_reply]
         package_details = label_details[:process_shipment_reply][:completed_shipment_detail][:completed_package_details]
         @options = package_details[:label]
