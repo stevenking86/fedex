@@ -160,8 +160,8 @@ module Fedex
 
       # Successful request
       def success?(response)
-        (response[:process_shipment_reply] || response[:ProcessShipmentReply]) &&
-          %w{SUCCESS WARNING NOTE}.include?(response[:ProcessShipmentReply][:highest_severity])
+        response[:process_shipment_reply] &&
+          %w{SUCCESS WARNING NOTE}.include?(response[:process_shipment_reply][:highest_severity])
       end
 
     end
